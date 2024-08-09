@@ -44,19 +44,33 @@
         </div>
     </nav>
     <div class="container-fluid" id="main-container">
-        <div class="title-font">Here are the list of Employees...</div>
+        <div class="title-font">Update an Employee...</div>
         <hr class="table-divider">
-        <div class="button-container">
-            <button class="btn btn-info"><a href = "search_employee.html"><i class="fa-solid fa-search"></i> Search Employee</a></button>
-            <span class="m-1"></span>
-            <button class="btn btn-success"><a href = "create_employee.html"><i class="fa-solid fa-plus"></i> Add Employee</a></button>
-        </div>
-        <div class="answer-div" id="answer-div">
+        <div class="form-body">
+            <div class="section-font"> Name </div>
+            <input class="form-control" type="text" name="name" id="name" required>
+            <div class="section-font"> DOB </div>
+            <input class="form-control" type="date" name="dob" id="dob" required>
+            <div class="section-font"> Phone Number </div>
+            <input class="form-control" type="text" pattern="\d*" title="Enter numbers only" name="phone_number"
+                id="phone_number" maxlength="10" required>
+            <label for="departments" class="section-font">Select Department</label><br>
+            <select class="form-control" name="departments" id="departments" required>
+            </select>
+            <div class="section-font"> Door No </div>
+            <input class="form-control" type="text" name="door_number" id="door_number" required>
+            <div class="section-font"> Locality </div>
+            <input class="form-control" type="text" name="locality" id="locality" required>
+            <div class="section-font"> City </div>
+            <input class="form-control" type="text" name="city" id="city" required>
+            <hr style="opacity: 0;">
+            <input type="submit" id="submit" class="btn btn-success" value="Add">
         </div>
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/script.js"></script>
+<script src="js/update_employee_script.js"></script>
+
 </html>

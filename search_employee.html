@@ -44,19 +44,25 @@
         </div>
     </nav>
     <div class="container-fluid" id="main-container">
-        <div class="title-font">Here are the list of Employees...</div>
+        <div class="title-font" style="font-size: larger;">Search Employee</div>
         <hr class="table-divider">
-        <div class="button-container">
-            <button class="btn btn-info"><a href = "search_employee.html"><i class="fa-solid fa-search"></i> Search Employee</a></button>
-            <span class="m-1"></span>
-            <button class="btn btn-success"><a href = "create_employee.html"><i class="fa-solid fa-plus"></i> Add Employee</a></button>
+        <hr style="opacity: 0;">
+        <div id="search-container">
+            <div class="section-font">Enter Employee ID</div>
+            <hr style="opacity: 0;">
+            <div class="search-inner-container">
+                <input class="form-control" type="number" name="id" id="id" placeholder="Enter ID">
+                <span class="m-1"></span>
+                <button id="search" class="btn btn-primary" type="submit" value="Search">Search</button>
+            </div>
         </div>
         <div class="answer-div" id="answer-div">
         </div>
+        
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/script.js"></script>
+<script src="js/search_employee_script.js"></script>
 </html>

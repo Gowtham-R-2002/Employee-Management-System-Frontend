@@ -1,25 +1,25 @@
 $(document).ready(function () {
-    $("#get-employees").click(function () {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/employee/getAll",
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                let table = "<table class='table'>"
-                    + "<thead>"
-                    + "<tr>"
-                    + "<th> ID </th>"
-                    + "<th> Name </th>"
-                    + "<th> DOB </th>"
-                    + "<th> Phone Number </th>"
-                    + "<th> Department </th>"
-                    + "<th> Address </th>"
-                    + "</thead>"
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/employee/getAll",
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            let table = "<table class='table table-dark table-striped table-bordered'>"
+                + "<thead>"
+                + "<tr>"
+                + "<th> ID </th>"
+                + "<th> Name </th>"
+                + "<th> DOB </th>"
+                + "<th> Phone Number </th>"
+                + "<th> Department </th>"
+                + "<th> Address </th>"
+                + "<th> Options </th>"
+                + "</thead>"
 
-                response.forEach(employee => {
-                    let address = employee.doorNumber + " " + employee.locality + " " + employee.city;
-                    let employeeDetails = "<tbody>"
+            response.forEach(employee => {
+                let address = employee.doorNumber + " " + employee.locality + " " + employee.city;
+                let employeeDetails = "<tbody>"
                     + "<tr>"
                     + `<td> ${employee.id} </td>`
                     + `<td> ${employee.name} </td>`
@@ -27,13 +27,30 @@ $(document).ready(function () {
                     + `<td> ${employee.phoneNumber} </td>`
                     + `<td> ${employee.departmentName} </td>`
                     + `<td> ${address} </td>`
+                    + `<td> <button class="btn btn-warning"><a href = "update_employee.html?id=${employee.id}">Edit <i class="fa-solid fa-pen"></i></a></button>
+                    <button class="btn btn-danger" id="delete-btn" onClick = "deleteEmployee(${employee.id})">Delete <i class="fa-solid fa-trash-can"></i></button></td>`
                     + "</tr>";
-                    table += employeeDetails;
-                })
-                table += "</tbody></table>";
-                console.log(table);
-                $("#answer-div").append(table);
-            }
-        });
+                table += employeeDetails;
+            })
+            table += "</tbody></table>";
+            console.log(table);
+            $("#answer-div").append(table);
+        }
     });
 });
+
+function deleteEmployee(id) {
+    if (confirm("Are you sure to delete?")) {
+        $.ajax({
+            url: "http://localhost:8080/employee/delete/" + id,
+            type: "PUT",
+            dataType: "JSON",
+            success: function (response) {
+                alert("Data deleted successfully !");
+                location.reload();
+            }, error: function () {
+                alert("Deletion failed!");
+            }
+        });
+    }
+};
