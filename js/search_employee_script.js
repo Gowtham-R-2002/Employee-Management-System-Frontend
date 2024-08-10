@@ -3,9 +3,10 @@ $(document).ready(function () {
         let id = $("#id").val();
         $.ajax({
             type: "GET",
-            url: "http://localhost:8080/employee/get/" + id,
+            url: "http://localhost:8080/employee/" + id,
             dataType: "JSON",
-            success: function (employee) {
+            success: function (employee, xhr) {
+                $(".table").remove();
                 console.log(employee)
                 let table = "<table class='table table-dark table-striped table-bordered'>"
                     + "<thead>"
@@ -43,8 +44,14 @@ $(document).ready(function () {
 
                 let certificates = "";
                 employee.certificates.forEach(certificate => {
-                    certificates += certificate.name + ",";
+                    certificates += certificate.name + ", ";
                 });
+
+                if (certificates === "") {
+                    certificates += "No Certificates found !"
+                } else {
+                    certificates = certificates.slice(0, -2)
+                }
 
                 let certificatesRow = "<tbody>"
                     + "<tr>"
@@ -55,26 +62,16 @@ $(document).ready(function () {
                 certificatesTable += certificatesRow
                 $("#answer-div").append(certificatesTable);
 
-            }, error: function () {
-                let errorMessage = `<div class="error-message"> No Employees Found! </div>`;
-                $("#answer-div").append(errorMessage);
+            }, error: function (xhr) {
+                if (xhr.status === 404) {
+                    $(".table").remove();
+                    let errorMessage = `<div class="error-message"> No Employees Found! </div>`;
+                    $("#answer-div").append(errorMessage);
+                } else if (xhr.status === 500) {
+                    let errorMessage = `<div class="error-message"> Server error !</div>`;
+                    $("#answer-div").append(errorMessage);
+                }
             }
         });
     });
 });
-
-function deleteEmployee(id) {
-    if (confirm("Are you sure to delete?")) {
-        $.ajax({
-            url: "http://localhost:8080/employee/delete/" + id,
-            type: "PUT",
-            dataType: "JSON",
-            success: function (response) {
-                alert("Data deleted successfully !");
-                location.reload();
-            }, error: function () {
-                alert("Deletion failed!");
-            }
-        });
-    }
-};

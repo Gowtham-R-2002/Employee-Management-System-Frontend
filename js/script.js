@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/employee/getAll",
+        url: "http://localhost:8080/employee",
         dataType: "json",
         success: function (response) {
             console.log(response)
@@ -38,19 +38,3 @@ $(document).ready(function () {
         }
     });
 });
-
-function deleteEmployee(id) {
-    if (confirm("Are you sure to delete?")) {
-        $.ajax({
-            url: "http://localhost:8080/employee/delete/" + id,
-            type: "PUT",
-            dataType: "JSON",
-            success: function (response) {
-                alert("Data deleted successfully !");
-                location.reload();
-            }, error: function () {
-                alert("Deletion failed!");
-            }
-        });
-    }
-};
