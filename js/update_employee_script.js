@@ -4,7 +4,7 @@ console.log(id);
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/department",
+        url: "http://localhost:8080/api/v1/departments",
         dataType: "JSON",
         success: function (response) {
             console.log(response);
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/employee/" + id,
+        url: "http://localhost:8080/api/v1/employees/" + id,
         dataType: "JSON",
         success: function (employee) {
             $("#name").val(employee.name);
@@ -45,7 +45,7 @@ $("#submit").click(function () {
     let city = $("#city").val();
     if (/^[a-zA-Z ]+$/.test(name) && /^[a-zA-Z ]+$/.test(city) && /^\d+$/.test(phoneNumber)) {
         let employee = {
-            name: name, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber,
+            id: id, name: name, dateOfBirth: dateOfBirth, phoneNumber: phoneNumber,
             departmentId: departmentId, doorNumber: doorNumber, locality: locality,
             city: city
         }
@@ -54,14 +54,18 @@ $("#submit").click(function () {
             && null !== doorNumber && null !== locality && null !== city) {
             $.ajax({
                 type: "PUT",
-                url: "http://localhost:8080/employee/" + id,
+                url: "http://localhost:8080/api/v1/employees",
                 data: JSON.stringify(employee),
                 contentType: "application/json; charset=utf-8",
-                success: function (response) {
+                success: function () {
                     alert("Employee updated Successful !")
                     window.location.replace("/")
-                }, error: function () {
-                    alert("Employee add failed!")
+                }, error: function (xhr) {
+                    if (xhr.status === 409) {
+                        alert("Employee with similar data entered already exists!")
+                    } else {
+                        alert("Employee add failed!")
+                    }
                 }
             });
         }

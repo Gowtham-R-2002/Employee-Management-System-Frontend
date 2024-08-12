@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/employee",
+        url: "http://localhost:8080/api/v1/employees",
         dataType: "json",
         success: function (response) {
             console.log(response)
@@ -10,7 +10,7 @@ $(document).ready(function () {
                 + "<tr>"
                 + "<th> ID </th>"
                 + "<th> Name </th>"
-                + "<th> DOB </th>"
+                + "<th> Age </th>"
                 + "<th> Phone Number </th>"
                 + "<th> Department </th>"
                 + "<th> Address </th>"
@@ -23,7 +23,7 @@ $(document).ready(function () {
                     + "<tr>"
                     + `<td> ${employee.id} </td>`
                     + `<td> ${employee.name} </td>`
-                    + `<td> ${employee.dateOfBirth} </td>`
+                    + `<td> ${employee.age} </td>`
                     + `<td> ${employee.phoneNumber} </td>`
                     + `<td> ${employee.departmentName} </td>`
                     + `<td> ${address} </td>`
